@@ -1,7 +1,7 @@
 # MSSQL-ELK
 Loading data from SQL Server to ELK stack
 
-Download the SQL Server 2019 bits and the elk 7.10.2 suite for windows from the below links.
+1. Download the SQL Server 2019 bits and the elk 7.10.2 suite for windows from the below links.
 
 https://download.microsoft.com/download/d/a/2/da259851-b941-459d-989c-54a18a5d44dd/SQL2019-SSEI-Dev.exe
 
@@ -11,21 +11,33 @@ https://artifacts.elastic.co/downloads/logstash/logstash-7.10.2-windows-x86_64.z
 
 https://artifacts.elastic.co/downloads/kibana/kibana-7.10.2-windows-x86_64.zip
 
-Post SQL Server 2019 developer edition installation restore the below AdventureWorks database.
+2. Install SQL Server 2019 developer edition and restore the below AdventureWorks database which can be downloaded from the below link.
 
 https://github-production-release-asset-2e65be.s3.amazonaws.com/53698446/b14c8c28-bb2b-11e7-9547-07167e8769f0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210128%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210128T095242Z&X-Amz-Expires=300&X-Amz-Signature=93a66320b895b09d0c9c697e78688930bf37f197512a6a9227327031b2c5e44c&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=53698446&response-content-disposition=attachment%3B%20filename%3DAdventureWorks2014.bak&response-content-type=application%2Foctet-stream
 
-Verify that we have the JDK tools installed on the machine on which the installation is being carried out.
+3. Verify that we have the JDK tools installed on the machine on which the installation is being carried out.
 
-Install ELK on Windows by extracting it to the C drive.
+4. Install ELK on Windows by extracting it to the C drive.
 
 C:\elasticsearch-7.10.2\elasticsearch-7.10.2>bin\elasticsearch
 C:\logstash-7.10.2\logstash-7.10.2>bin\logstash
 C:\kibana-7.10.2\kibana-7.10.2>bin\kibana
 
-Post installtion we will be to check the services on the below links.
+5. Post installtion we will be to check the services on the below links.
+
 elasticsearch : http://localhost:9200/
 kibana : http://localhost:5601/
+
+6. Create the index into which we will be pushing the data.
+PUT adventureworks_salesterritory
+{
+"settings" : {
+      "index" : {
+              "number_of_shards" : 1,
+              "number_of_replicas" : 0
+                }
+            }
+}
 
 Note :  to use the logstash to connect to SQL server we need the SQLJDBC driver to be installed, use the below link to download extract it and place it on the jars folder location C:\logstash-7.10.2\logstash-7.10.2\logstash-core\lib\jars
 
